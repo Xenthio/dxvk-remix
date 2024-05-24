@@ -366,6 +366,8 @@ namespace dxvk {
 
     RTX_OPTION("rtx", float, resolutionScale, 0.75f, "");
     RTX_OPTION("rtx", bool, forceCameraJitter, false, "");
+    RTX_OPTION("rtx", bool, forceCameraJitterTest, false, "");
+    RTX_OPTION("rtx", float, forceCameraJitterScale, 0.5f, "");
     RTX_OPTION("rtx", bool, enableDirectLighting, true, "Enables direct lighting (lighting directly from lights on to a surface) on surfaces when set to true, otherwise disables it.");
     RTX_OPTION("rtx", bool, enableSecondaryBounces, true, "Enables indirect lighting (lighting from diffuse/specular bounces to one or more other surfaces) on surfaces when set to true, otherwise disables it.");
     RTX_OPTION("rtx", bool, zUp, false, "Indicates that the Z axis is the \"upward\" axis in the world when true, otherwise the Y axis when false.");

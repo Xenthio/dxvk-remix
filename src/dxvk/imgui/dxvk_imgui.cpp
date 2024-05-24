@@ -1496,6 +1496,8 @@ namespace dxvk {
         sendUIActivationMessage();
       }
       ImGui::Checkbox("Force Camera Jitter", &RtxOptions::Get()->forceCameraJitterObject());
+      ImGui::Checkbox("Force Camera Jitter Test", &RtxOptions::Get()->forceCameraJitterTestObject());
+      ImGui::DragFloat("Force Camera Jitter Scale", &RtxOptions::Get()->forceCameraJitterScaleObject(), 0.01f, 0.0f, 2.0f, "%.3f");
       ImGui::DragIntRange2("Draw Call Range Filter", &RtxOptions::Get()->drawCallRangeObject(), 1.f, 0, INT32_MAX, nullptr, nullptr, ImGuiSliderFlags_AlwaysClamp);
       ImGui::InputInt("Instance Index Start", &RtxOptions::Get()->instanceOverrideInstanceIdxObject());
       ImGui::InputInt("Instance Index Range", &RtxOptions::Get()->instanceOverrideInstanceIdxRangeObject());
