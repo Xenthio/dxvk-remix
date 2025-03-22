@@ -161,7 +161,7 @@ float3 applyToneMapping(float3 color, uint2 pixelPosition)
       
       if (cb.finalizeWithACES)
       {
-        color = ACESFilm(color);
+        color = ACESFilm(color, cb.useLegacyACES);
       }
     } 
     else
