@@ -96,6 +96,34 @@ float3 filmicToneMapper(float3 inputColor)
   return pow(x, float3(2.2));
 }
 
+// Hable flimic tonemapping, from
+// http://filmicworlds.com/blog/filmic-tonemapping-operators/
+float3 Uncharted2Tonemap(float3 x)
+{
+  float A = 0.15;
+  float B = 0.50;
+  float C = 0.10;
+  float D = 0.20;
+  float E = 0.02;
+  float F = 0.30;
+  float W = 4.00;
+
+  x = ((x*(A*x+C*B)+D*E)/(x*(A*x+B)+D*F))-E/F;
+  return x;
+}
+float3 uncharted2ToneMapper(float3 inputColor)
+{
+  float W = 4.00;
+  
+  float ExposureBias = 2.0;
+  float3 curr = Uncharted2Tonemap(ExposureBias*inputColor);
+  
+  float3 whiteScale = 1.0f/Uncharted2Tonemap(W);
+  float3 color = curr*whiteScale;
+  return color;//pow(color, float3(2.2));
+}
+
+
 
 // Dynamic tone mapper based on Eilertsen, Mantiuk, and Unger's paper
 // *Real-time noise-aware tone mapping*. Applies a luminance-based tone 
@@ -162,6 +190,16 @@ float3 applyToneMapping(float3 color, uint2 pixelPosition)
         color = mix(color, float3(1.0f, 1.0f, 1.0f), 0.5f);
       }
     }
+  }
+  else
+  {
+      // Normal tone mapping
+      color = uncharted2ToneMapper(color);
+      
+      if (cb.finalizeWithACES)
+      {
+        color = ACESFilm(color);
+      } 
   }
   
   if (cb.colorGradingEnabled > 0)
